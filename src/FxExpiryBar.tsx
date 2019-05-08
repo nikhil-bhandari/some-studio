@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const TopItem = styled.div`
   flex: 1;
   font-size: 25px;
-  line-height: 45px;
+  line-height: 50px;
 `;
 
 const Currency = styled(TopItem)`
@@ -64,10 +64,10 @@ const Progress = styled.div<{ percentage: Number }>`
 
 const Button = styled.button`
   font-size: 15px;
-  margin-left: 10px;
+  margin-left: 20px;
   border: 0;
   outline: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 100px;
   height: 50px;
   line-height: 50px;
