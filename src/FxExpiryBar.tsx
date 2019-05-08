@@ -19,7 +19,9 @@ const TimeRemaining = styled(TopItem)`
 `;
 
 const ExpiryHandling = styled(TopItem)`
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const Collapsable = styled.div`
@@ -61,11 +63,17 @@ const Progress = styled.div<{ percentage: Number }>`
 `;
 
 const Button = styled.button`
+  font-size: 15px;
+  margin-left: 10px;
   border: 0;
   outline: 0;
   border-radius: 10px;
+  width: 100px;
   height: 50px;
-  line-height: 50px; 
+  line-height: 50px;
+  background-color: red;
+  color: #FFF;
+  display: inline-block;
 `;
 
 const FxBarWrapper = styled.div`
@@ -76,6 +84,8 @@ const FxBarWrapper = styled.div`
   padding: 20px;
   background-color: darkblue;
   color: #FFF;
+  border-radius: 5px;
+  overflow: hidden;
 `;
 
 interface FxExpiryBarProps {
@@ -121,8 +131,8 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer }) => {
 
   if (isTimerComplete) {
     rightComponent = <ExpiryHandling>
-      Your session expired
-
+      <span style={{lineHeight: '50px'}}>Your session expired</span>
+      <Button>Refresh</Button>
     </ExpiryHandling>;
   } else {
     rightComponent = <TimeRemaining> {eta} seconds remaining </TimeRemaining>;
