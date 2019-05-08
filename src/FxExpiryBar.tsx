@@ -5,6 +5,14 @@ import styled from 'styled-components';
 
 interface FxExpiryBarProps {
   timer: number,
+  from: {
+    amount: number,
+    unit: string
+  },
+  to: {
+    amount: number,
+    unit: string
+  }
   onExpiry: () => void
 }
 
@@ -111,7 +119,7 @@ function useCountdown(timer: number) {
   return countdown;
 }
 
-const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry }) => {
+const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, from, to }) => {
   const countdown = useCountdown(timer);
 
   //Elapsed time starts with 0 but the count down starts with 1
@@ -131,7 +139,7 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry }) => {
 
   if (isTimerComplete) {
     rightComponent = <ExpiryHandling>
-      <span style={{lineHeight: '50px'}}>Your session expired</span>
+      <span style={{ lineHeight: '50px' }}>Your session expired</span>
       <Button onClick={onExpiry}>Refresh</Button>
     </ExpiryHandling>;
   } else {
@@ -141,7 +149,7 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry }) => {
   return (
     <FxBarWrapper>
       <Currency>
-        1 SGD = 50 INR
+        {from.amount} {from.unit} = {to.amount} {to.unit}
       </Currency>
       {rightComponent}
       <ProgressBar className={isTimerComplete ? 'collapsed' : ''}>

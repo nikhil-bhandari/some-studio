@@ -4,14 +4,23 @@ import './App.css';
 import FxExpiryBar from './FxExpiryBar';
 
 const App: React.FC = () => {
-  console.log('render')
+  const conversions = [
+    { from: { amount: 1, unit: 'SGD' }, to: { amount: 50, unit: 'INR' }, timer: 10 },
+    { from: { amount: 1, unit: 'SGD' }, to: { amount: 0.73, unit: 'USD' }, timer: 20 },
+    { from: { amount: 1, unit: 'SGD' }, to: { amount: 0.66, unit: 'EUR' }, timer: 30 },
+  ];
+
   return (
     <div>
-      <FxExpiryBar timer={3} onExpiry={()=>{
-        console.log('asas');
-      }} />
-      {/* <FxExpiryBar timer={20}  /> */}
-      {/* <FxExpiryBar  timer={30} /> */}
+      {
+        conversions.map((currency) =>  <FxExpiryBar
+        from={currency.from}
+        to={currency.to}
+        timer={currency.timer}
+        onExpiry={() => {
+          console.log(`10 should be Refreshing`);
+        }} />)
+      }
     </div>
   );
 }
