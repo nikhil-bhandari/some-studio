@@ -7,7 +7,9 @@ const App: React.FC = () => {
   console.log('render')
   return (
     <div>
-      <FxExpiryBar timer={3} />
+      <FxExpiryBar timer={3} onExpiry={()=>{
+        console.log('asas');
+      }} />
       {/* <FxExpiryBar timer={20}  /> */}
       {/* <FxExpiryBar  timer={30} /> */}
     </div>

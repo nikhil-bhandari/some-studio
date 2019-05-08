@@ -4,7 +4,8 @@ import './App.css';
 import styled from 'styled-components';
 
 interface FxExpiryBarProps {
-  timer: number
+  timer: number,
+  onExpiry: () => void
 }
 
 const TopItem = styled.div`
@@ -110,7 +111,7 @@ function useCountdown(timer: number) {
   return countdown;
 }
 
-const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer }) => {
+const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry }) => {
   const countdown = useCountdown(timer);
 
   //Elapsed time starts with 0 but the count down starts with 1
@@ -131,7 +132,7 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer }) => {
   if (isTimerComplete) {
     rightComponent = <ExpiryHandling>
       <span style={{lineHeight: '50px'}}>Your session expired</span>
-      <Button>Refresh</Button>
+      <Button onClick={onExpiry}>Refresh</Button>
     </ExpiryHandling>;
   } else {
     rightComponent = <TimeRemaining> {eta} seconds remaining </TimeRemaining>;
