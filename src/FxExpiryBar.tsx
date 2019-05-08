@@ -24,7 +24,7 @@ const ExpiryHandling = styled(TopItem)`
 
 const Collapsable = styled.div`
   max-height: 1000px;
-  transition: max-height 0.1s linear, margin 0.5s linear;
+  transition: max-height 0.1s linear, margin 0.3s linear;
   height: auto;
   &.collapsed {
     margin: 0;
