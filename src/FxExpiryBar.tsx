@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
 import styled from 'styled-components';
+
+interface FxExpiryBarProps {
+  timer: number
+}
 
 const TopItem = styled.div`
   flex: 1;
@@ -87,10 +90,6 @@ const FxBarWrapper = styled.div`
   border-radius: 5px;
   overflow: hidden;
 `;
-
-interface FxExpiryBarProps {
-  timer: number
-}
 
 function useCountdown(timer: number) {
   // Count down should start from 0 so that inital progressbar renders with 0 width
