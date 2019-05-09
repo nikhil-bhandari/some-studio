@@ -13,13 +13,15 @@ const App: React.FC = () => {
   return (
     <div>
       {
-        conversions.map((currency) =>  <FxExpiryBar
-        from={currency.from}
-        to={currency.to}
-        timer={currency.timer}
-        onExpiry={() => {
-          console.log(`10 should be Refreshing`);
-        }} />)
+        conversions.map((currency) =>
+          <FxExpiryBar
+            from={currency.from}
+            to={currency.to}
+            timer={currency.timer}
+            onExpiry={() => {
+              console.log(`${currency.timer} should be Refreshing`);
+            }} />
+        )
       }
     </div>
   );

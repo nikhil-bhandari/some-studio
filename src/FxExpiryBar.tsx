@@ -133,7 +133,7 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, from, to }) 
 
   const isTimerComplete = timer === elapsedTime;
 
-  console.log('TimerComplete', isTimerComplete, countdown, 'Elapsed Time', elapsedTime, 'eta', eta, 'percentage', percentage);
+  // console.log('TimerComplete', isTimerComplete, countdown, 'Elapsed Time', elapsedTime, 'eta', eta, 'percentage', percentage);
 
   let rightComponent;
 
