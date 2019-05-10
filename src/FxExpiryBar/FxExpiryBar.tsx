@@ -20,20 +20,7 @@ function getRightComponent(isTimerComplete: boolean, onExpiry: () => void, eta: 
 
 const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, from, to }) => {
   const countdown = useCountdown(timer);
-
-  //Elapsed time starts with 0 but the count down starts with 1
-  const elapsedTime = Math.max(countdown - 1, 0);
-
-  // ETA should not be greater than the timer.
-  const eta = timer - Math.min(elapsedTime, timer);
-
-  // For UI Percentage should always be one step ahead because it tetaakes one second for a smooth transition
-  const percentage = (countdown) / timer * 100;
-
-  const isTimerComplete = timer === elapsedTime;
-
-  // console.log('TimerComplete', isTimerComplete, countdown, 'Elapsed Time', elapsedTime, 'eta', eta, 'percentage', percentage);
-
+  const { eta, percentage, isTimerComplete } = countdown;
   let rightComponent = getRightComponent(isTimerComplete, onExpiry, eta);
 
   return (
