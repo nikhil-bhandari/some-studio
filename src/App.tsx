@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import FxExpiryBar from './FxExpiryBar';
+import FxExpiryBar from './FxExpiryBar/FxExpiryBar';
 
 const App: React.FC = () => {
   const conversions = [
