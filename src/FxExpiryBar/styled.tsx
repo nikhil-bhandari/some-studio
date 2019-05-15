@@ -75,7 +75,6 @@ export const Button = styled.button`
 export const FxBarWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
   box-shadow: 0 0 11px 1px rgba(0, 0, 0, 0.1);
   padding: 20px;
   background-color: darkblue;

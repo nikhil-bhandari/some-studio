@@ -1,27 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import FxExpiryBar from './FxExpiryBar/FxExpiryBar';
+import Currency from './Currency/Currency';
+
+
 
 const App: React.FC = () => {
-  const conversions = [
-    { from: { amount: 1, unit: 'SGD' }, to: { amount: 50, unit: 'INR' }, timer: 10 },
-    { from: { amount: 1, unit: 'SGD' }, to: { amount: 0.73, unit: 'USD' }, timer: 20 },
-    { from: { amount: 1, unit: 'SGD' }, to: { amount: 0.66, unit: 'EUR' }, timer: 30 },
-  ];
+  const [conversion, setConversion] = useState({
+    from: { amount: 100, unit: 'USD' },
+    to: { amount: 2948, unit: 'TWD' },
+  });
+  const currencyPair = {
+    from: { amount: 1, unit: 'USD' },
+    to: { amount: 29.48, unit: 'TWD' },
+    timer: 5
+  };
 
   return (
-    <div>
-      {
-        conversions.map((currency) =>
-          <FxExpiryBar
-            from={currency.from}
-            to={currency.to}
-            timer={currency.timer}
-            onExpiry={() => {
-              console.log(`${currency.timer} should be Refreshing`);
-            }} />
-        )
-      }
+    <div style={{ padding: '20px' }}>
+      <Currency currency={conversion.from} onChange={(value) => {
+        conversion.from.amount = parseInt(value);
+        setConversion(Object.assign({}, conversion));
+      }} />
+      <Currency currency={conversion.to} onChange={(value) => {
+        conversion.to.amount = parseInt(value);
+        setConversion(Object.assign({}, conversion));
+      }} />
+      <FxExpiryBar
+        from={currencyPair.from}
+        to={currencyPair.to}
+        timer={currencyPair.timer}
+        onExpiry={() => {
+          console.log(`${currencyPair.timer} should be Refreshing`);
+        }} />
     </div>
   );
 }

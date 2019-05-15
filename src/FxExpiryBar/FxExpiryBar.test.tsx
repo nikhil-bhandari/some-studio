@@ -1,18 +1,17 @@
-import { renderHook, act } from 'react-hooks-testing-library'
-import FxExpiryBar from './FxExpiryBar'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import FxExpiryBar from './FxExpiryBar';
 
-test('should increment counter', () => {
-  const { result } = renderHook(() => FxExpiryBar())
-
-  act(() => result.current.increment())
-
-  expect(result.current.count).toBe(1)
-})
-
-test('should decrement counter', () => {
-  const { result } = renderHook(() => FxExpiryBar())
-
-  act(() => result.current.decrement())
-
-  expect(result.current.count).toBe(-1)
-})
+it('renders without crashing', () => {
+    const div = document.createElement('div');
+    const currency = { from: { amount: 1, unit: 'SGD' }, to: { amount: 50, unit: 'INR' }, timer: 10 };
+    ReactDOM.render(<FxExpiryBar
+        from={currency.from}
+        to={currency.to}
+        timer={currency.timer}
+        onExpiry={() => {
+            console.log(`${currency.timer} should be Refreshing`);
+        }}
+    />, div);
+    ReactDOM.unmountComponentAtNode(div);
+});
