@@ -30,8 +30,15 @@ const App: React.FC = () => {
         from={currencyPair.from}
         to={currencyPair.to}
         timer={currencyPair.timer}
+        onRefresh={(afterRefresh) => {
+          console.log(`Refreshing.....`);
+          setTimeout(() => {
+            console.log('Refreshed');
+            afterRefresh();
+          }, 3000);
+        }}
         onExpiry={() => {
-          console.log(`${currencyPair.timer} should be Refreshing`);
+          console.log('Expired')
         }} />
     </div>
   );

@@ -1,22 +1,33 @@
 import { useEffect, useState } from "react";
 
-export default function useCountdown(timer: number) {
+export default function useCountdown(timer: number, interval: number = 1000) {
   // Count down should start from 0 so that inital progressbar renders with 0 width
   const [data, setData] = useState(getTimer(timer, 0));
 
   useEffect(() => {
-    const pid = setTimeout(() => {
-      if (data.countdown <= timer) {
+    if (data.countdown === 0) {
+      setData(getTimer(timer, data.countdown + 1));
+    }
+
+    let pid: any;
+
+    if (data.countdown <= timer) {
+      pid = setTimeout(() => {
         setData(getTimer(timer, data.countdown + 1));
-      }
-    }, data.countdown > 0 ? 1000 : 0);
+      }, interval);
+    }
 
     return function cleanup() {
       clearTimeout(pid);
     };
-  });
+  }, [data.countdown]);
 
-  return data;
+  return {
+    countdown: data,
+    reset: () => {
+      setData(getTimer(timer, 0))
+    }
+  };
 }
 
 export function getTimer(timer: number, countdown: number) {

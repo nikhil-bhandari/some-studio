@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useCountdown from './useCountdown';
 import FxExpiryBarProps from './FxExpiryBarProps';
-import { ExpiryHandling, Button, TimeRemaining, FxBarWrapper, Currency, ProgressBar, Progress } from './styled';
+import { ExpiryHandling, Button, TimeRemaining, FxBarWrapper, Currency, ProgressBar, Spinner } from './styled';
 
-function getRightComponent(isTimerComplete: boolean, onExpiry: () => void, eta: number) {
+function getRightComponent(isTimerComplete: boolean, eta: number, isRefreshing: boolean, onExpiry: () => void, onRefresh: () => void) {
   let rightComponent;
 
   if (isTimerComplete) {
     rightComponent = <ExpiryHandling>
       <span style={{ lineHeight: '50px' }}>Your session expired</span>
-      <Button onClick={onExpiry}>Refresh</Button>
+      <Button onClick={onRefresh}>
+        Refresh
+        {isRefreshing && <Spinner />}
+      </Button>
     </ExpiryHandling>;
+    if(!isRefreshing){
+      onExpiry();
+    }
   } else {
     rightComponent = <TimeRemaining> {eta} seconds remaining </TimeRemaining>;
   }
@@ -18,10 +24,18 @@ function getRightComponent(isTimerComplete: boolean, onExpiry: () => void, eta: 
   return rightComponent;
 }
 
-const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, from, to }) => {
-  const countdown = useCountdown(timer);
+const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, onRefresh, from, to }) => {
+  const { countdown, reset } = useCountdown(timer);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { eta, percentage, isTimerComplete } = countdown;
-  let rightComponent = getRightComponent(isTimerComplete, onExpiry, eta);
+
+  let rightComponent = getRightComponent(isTimerComplete, eta, isRefreshing, onExpiry, () => {
+    setIsRefreshing(true);
+    onRefresh(()=>{
+      reset();
+      setIsRefreshing(false);
+    });
+  });
 
   return (
     <FxBarWrapper>
@@ -29,8 +43,8 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, from, to }) 
         {from.amount} {from.unit} = {to.amount} {to.unit}
       </Currency>
       {rightComponent}
-      <ProgressBar className={isTimerComplete ? 'collapsed' : ''}>
-        <Progress percentage={percentage} />
+      <ProgressBar className={isTimerComplete ? 'collapsed' : ''} percentage={percentage}>
+        <div></div>
       </ProgressBar>
     </FxBarWrapper>
   );
