@@ -103,6 +103,7 @@ export const Spinner = styled.span`
 `;
 
 export const Button = styled.button`
+    cursor: pointer;
     font-size: 15px;
     margin-left: 20px;
     border: 0;
@@ -117,7 +118,7 @@ export const Button = styled.button`
     min-width: 100px;
     display: flex;
     justify-content: center;
-    > span {
+    > ${Spinner} {
       margin-left: 10px;
     }
 `;
