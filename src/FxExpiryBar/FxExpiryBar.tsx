@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useCountdown from './useCountdown';
+import useCountdown from '../ProgressBar/useCountdown';
 import FxExpiryBarProps from './FxExpiryBarProps';
 import { ExpiryHandling, Button, TimeRemaining, FxBarWrapper, Currency, ProgressBar, Spinner } from './styled';
 

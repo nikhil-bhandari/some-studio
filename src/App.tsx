@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import FxExpiryBar from './FxExpiryBar/FxExpiryBar';
 import Currency from './Currency/Currency';
-
+import Timer from './Timer/Timer';
 
 
 const App: React.FC = () => {
@@ -30,16 +30,29 @@ const App: React.FC = () => {
         from={currencyPair.from}
         to={currencyPair.to}
         timer={currencyPair.timer}
-        onRefresh={(afterRefresh) => {
+        onRefresh={(resetTimer) => {
           console.log(`Refreshing.....`);
           setTimeout(() => {
             console.log('Refreshed');
-            afterRefresh();
+            resetTimer();
           }, 3000);
         }}
         onExpiry={() => {
           console.log('Expired')
         }} />
+
+        <Timer
+          duration={5000}
+          onTimeout={(reset)=>{
+
+          }}
+        >
+          {
+            ({eta, percentage})=>{
+              return <div>{eta}</div>;
+            }
+          }
+        </Timer>
     </div>
   );
 }
