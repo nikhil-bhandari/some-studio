@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import useCountdown from './useCountdown';
 import FxExpiryBarProps from './FxExpiryBarProps';
 import { ExpiryHandling, Button, TimeRemaining, FxBarWrapper, Currency, ProgressBar, Spinner } from './styled';
@@ -14,7 +14,7 @@ function getRightComponent(isTimerComplete: boolean, eta: number, isRefreshing: 
         {isRefreshing && <Spinner />}
       </Button>
     </ExpiryHandling>;
-    if(!isRefreshing){
+    if (!isRefreshing) {
       onExpiry();
     }
   } else {
@@ -31,7 +31,7 @@ const FxExpiryBar: React.FC<FxExpiryBarProps> = ({ timer, onExpiry, onRefresh, f
 
   let rightComponent = getRightComponent(isTimerComplete, eta, isRefreshing, onExpiry, () => {
     setIsRefreshing(true);
-    onRefresh(()=>{
+    onRefresh(() => {
       reset();
       setIsRefreshing(false);
     });
